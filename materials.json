@@ -1,0 +1,12 @@
+{
+  "Silicon": {
+    "bandgap": "1.12 eV",
+    "crystal": "Diamond Cubic",
+    "applications": ["Microprocessors", "Solar Cells", "Sensors"]
+  },
+  "Gallium Arsenide": {
+    "bandgap": "1.42 eV",
+    "crystal": "Zinc Blende",
+    "applications": ["RF Devices", "High-Speed ICs", "Optoelectronics"]
+  }
+}

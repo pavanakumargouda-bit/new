@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Semiconductor Element & Ratio Calculator</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #eef2f3;
+}
+.container {
+    width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+select, input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button {
+    background: #27ae60;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+button:hover {
+    background: #219150;
+}
+.result {
+    margin-top: 20px;
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Semiconductor Calculator</h2>
+
+<label>Base Semiconductor Material</label>
+<select id="base">
+    <option value="Silicon">Silicon (Si)</option>
+    <option value="Germanium">Germanium (Ge)</option>
+</select>
+
+<label>Dopant / Element Used</label>
+<select id="dopant">
+    <option value="None">None (Pure)</option>
+
+    <!-- P-Type Dopants -->
+    <option value="Boron">Boron (B)</option>
+    <option value="Aluminium">Aluminium (Al)</option>
+    <option value="Gallium">Gallium (Ga)</option>
+    <option value="Indium">Indium (In)</option>
+
+    <!-- N-Type Dopants -->
+    <option value="Phosphorus">Phosphorus (P)</option>
+    <option value="Arsenic">Arsenic (As)</option>
+    <option value="Antimony">Antimony (Sb)</option>
+    <option value="Bismuth">Bismuth (Bi)</option>
+</select>
+
+<label>Base Atom Count (Example: 1000000)</label>
+<input type="number" id="atoms" placeholder="Enter number of base atoms">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="output"></div>
+</div>
+
+<script>
+function calculate() {
+    let base = document.getElementById("base").value;
+    let dopant = document.getElementById("dopant").value;
+    let atoms = document.getElementById("atoms").value;
+
+    if (atoms === "" || atoms <= 0) {
+        document.getElementById("output").innerHTML =
+            "<b>Please enter a valid atom count.</b>";
+        return;
+    }
+
+    let type = "";
+    let carrier = "";
+    let ratio = atoms + " : 1";
+
+    // Intrinsic
+    if (dopant === "None") {
+        type = "Intrinsic Semiconductor";
+        carrier = "Electrons and Holes (Equal)";
+        ratio = "100% Pure " + base;
+    }
+
+    // P-Type
+    else if (
+        dopant === "Boron" ||
+        dopant === "Aluminium" ||
+        dopant === "Gallium" ||
+        dopant === "Indium"
+    ) {
+        type = "P-Type Semiconductor";
+        carrier = "Holes";
+    }
+
+    // N-Type
+    else {
+        type = "N-Type Semiconductor";
+        carrier = "Electrons";
+    }
+
+    document.getElementById("output").innerHTML = `
+        <p><b>Base Material:</b> ${base}</p>
+        <p><b>Dopant Element:</b> ${dopant}</p>
+        <p><b>Semiconductor Type:</b> ${type}</p>
+        <p><b>Ratio Used:</b> ${ratio}</p>
+        <p><b>Majority Charge Carrier:</b> ${carrier}</p>
+    `;
+}
+</script>
+
+</body>
+</html>
